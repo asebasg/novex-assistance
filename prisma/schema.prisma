@@ -6,10 +6,75 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+// User
+
+model User {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  password   String
+  name       String
+  role       Role     @default(ADMIN)
+  createdAt  DateTime @default(now())
+  employees  Employee[]
+  reports    Report[]
+}
+
+enum Role {
+  ADMIN
+}
+
+// Employee
+
+model Employee {
+  id           Int          @id @default(autoincrement())
+  name         String
+  document     String       @unique
+  position     String
+  createdAt    DateTime     @default(now())
+  userId       Int?         
+  user         User?        @relation(fields: [userId], references: [id])
+  attendances  Attendance[]
+  note         String?      // Opcional
+}
+
+// Attendance
+
+model Attendance {
+  id          Int       @id @default(autoincrement())
+  date        DateTime
+  entryTime   DateTime
+  exitTime    DateTime?
+  status      Status
+  employeeId  Int
+  employee    Employee  @relation(fields: [employeeId], references: [id])
+}
+
+enum Status {
+  PRESENT
+  ABSENT
+  LATE
+  DAY_OFF
+  VACATIONS
+  PERMIT
+}
+
+// Report
+
+model Report {
+  id          Int      @id @default(autoincrement())
+  startDate   DateTime
+  endDate     DateTime
+  fileUrl     String?      // si se exporta como PDF o Excel
+  createdAt   DateTime @default(now())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+// Para migrar base de datos: npx prisma migrate dev --name init
