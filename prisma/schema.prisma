@@ -36,12 +36,15 @@ model Employee {
   id           Int          @id @default(autoincrement())
   name         String
   document     String       @unique
-  position     String
+  note         String?      // Opcional
   createdAt    DateTime     @default(now())
+
   userId       Int?         
   user         User?        @relation(fields: [userId], references: [id])
+
   attendances  Attendance[]
-  note         String?      // Opcional
+  reports      Report[]
+ 
 }
 
 // Attendance
@@ -69,10 +72,13 @@ enum Status {
 
 model Report {
   id          Int      @id @default(autoincrement())
-  startDate   DateTime
-  endDate     DateTime
-  fileUrl     String?      // si se exporta como PDF o Excel
+  title       String
+  description String
   createdAt   DateTime @default(now())
+
+  employeeId  Int
+  employee    Employee @relation(fields: [employeeId], references: [id])
+
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
 }
