@@ -35,7 +35,7 @@ enum Role {
 model Employee {
   id           Int          @id @default(autoincrement())
   name         String
-  document     String       @unique
+  document     Int       @unique
   note         String?      // Opcional
   createdAt    DateTime     @default(now())
 
