@@ -16,27 +16,25 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // Metodo post (crear un usuario)
+  // Método POST (crear un usuario)
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
-  // Metodo get all (obtener todos los usuarios)
-
+  // Método GET all (obtener todos los usuarios)
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
-  // Metodo get (obtener un usuario por id)
-
+  // Método GET (obtener un usuario por id)
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.userService.findOne(id);
   }
 
-  // Metodo patch (actualizar un usuario)
+  // Método PATCH (actualizar un usuario)
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -45,8 +43,7 @@ export class UserController {
     return this.userService.update(id, updateUserDto);
   }
 
-  // Metodo delete (elimina un usuario)
-
+  // Método DELETE (eliminar un usuario)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.userService.remove(id);
