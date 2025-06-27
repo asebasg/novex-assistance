@@ -16,27 +16,25 @@ import { UpdateEmployeeDto } from './dto/update-employee.dto';
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 
-  // Metodo post (crear un usuario)
+  // Método POST (crear un empleado)
   @Post()
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
     return this.employeeService.create(createEmployeeDto);
   }
 
-  // Metodo get all (obtener todos los usuarios)
-
+  // Método GET all (obtener todos los empleados)
   @Get()
   findAll() {
     return this.employeeService.findAll();
   }
 
-  // Metodo get (obtener un usuario por id)
-
+  // Método GET (obtener un empleado por id)
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.employeeService.findOne(id);
   }
 
-  // Metodo patch (actualizar un usuario)
+  // Método PATCH (actualizar un empleado)
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -45,8 +43,7 @@ export class EmployeeController {
     return this.employeeService.update(id, updateEmployeeDto);
   }
 
-  // Metodo delete (elimina un usuario)
-
+  // Método DELETE (eliminar un empleado)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.employeeService.remove(id);
