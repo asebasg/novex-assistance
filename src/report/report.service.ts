@@ -7,41 +7,40 @@ import { UpdateReportDto } from './dto/update-report.dto';
 export class ReportService {
   constructor(private prisma: PrismaService) {}
 
-  //   Crear usuuario
+  // Crear reporte
   async create(createReportDto: CreateReportDto) {
     return this.prisma.report.create({
       data: createReportDto,
     });
   }
 
-  //   Encontrar a todos los usuarios
+  // Encontrar todos los reportes
   async findAll() {
     return this.prisma.report.findMany({});
   }
 
-  //   Encontrar usuario por ID
+  // Encontrar reporte por ID
   async findOne(id: number) {
     const report = await this.prisma.report.findUnique({
       where: { id },
     });
 
-    // Si no se encuentra al usuario
     if (!report) {
       throw new NotFoundException(
-        `No se encontro ningun usuario con la ID proporcionada`,
+        `No se encontró ningún reporte con la ID proporcionada`,
       );
     }
     return report;
   }
 
-  //   Actualizar usuario
+  // Actualizar reporte
   async update(id: number, updateReportDto: UpdateReportDto) {
     const report = await this.prisma.report.findUnique({
       where: { id },
     });
     if (!report) {
       throw new NotFoundException(
-        `No se encontro ningun usuario con la ID proporcionada`,
+        `No se encontró ningún reporte con la ID proporcionada`,
       );
     }
     return this.prisma.report.update({
@@ -50,8 +49,7 @@ export class ReportService {
     });
   }
 
-  //   Remover usuario
-
+  // Remover reporte
   async remove(id: number) {
     const report = await this.prisma.report.findUnique({
       where: { id },
@@ -59,7 +57,7 @@ export class ReportService {
 
     if (!report) {
       throw new NotFoundException(
-        `No se encontro ningun usuario con la ID proporcionada`,
+        `No se encontró ningún reporte con la ID proporcionada`,
       );
     }
 
