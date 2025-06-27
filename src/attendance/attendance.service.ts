@@ -21,25 +21,25 @@ export class AttendanceService {
 
   //   Encontrar asistencia por ID
   async findOne(id: number) {
-    const user = await this.prisma.attendance.findUnique({
+    const attendance = await this.prisma.attendance.findUnique({
       where: { id },
     });
 
     // Si no se encuentra la asistencia
-    if (!user) {
+    if (!attendance) {
       throw new NotFoundException(
         `No se encontro ninguna asistencia con la ID proporcionada`,
       );
     }
-    return user;
+    return attendance;
   }
 
   //   Actualizar asistencia
   async update(id: number, updateAttendanceDto: UpdateAttendanceDto) {
-    const user = await this.prisma.attendance.findUnique({
+    const attendance = await this.prisma.attendance.findUnique({
       where: { id },
     });
-    if (!user) {
+    if (!attendance) {
       throw new NotFoundException(
         `No se encontro ninguna asistencia con la ID proporcionada`,
       );
@@ -52,11 +52,11 @@ export class AttendanceService {
 
   //   Remover asistencia
   async remove(id: number) {
-    const user = await this.prisma.attendance.findUnique({
+    const attendance = await this.prisma.attendance.findUnique({
       where: { id },
     });
 
-    if (!user) {
+    if (!attendance) {
       throw new NotFoundException(
         `No se encontro ningun usuario con la ID proporcionada`,
       );
