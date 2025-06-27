@@ -21,7 +21,7 @@ export class EmployeeService {
 
   // Encontrar empleado por ID
   async findOne(id: number) {
-    const employee = await this.prisma.user.findUnique({
+    const employee = await this.prisma.employee.findUnique({
       where: { id },
     });
 
@@ -34,7 +34,7 @@ export class EmployeeService {
     return employee;
   }
 
-  // Actualizar un usuario
+  // Actualizar un empleado
   async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
     const employee = await this.prisma.employee.findUnique({
       where: { id },
@@ -50,7 +50,7 @@ export class EmployeeService {
     });
   }
 
-  // Eliminar un usuario
+  // Eliminar un empleado
   async remove(id: number) {
     const employee = await this.prisma.employee.findUnique({
       where: { id },
