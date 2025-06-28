@@ -1,6 +1,35 @@
 # Novex Assistance
 Novex Assistance es una API REST desarrollada con tecnología NestJS y Prisma que permite llevar el control de asistencias y reportes de múltiples entidades tales como empresas, colegios, universidades, etc. Esta API está diseñada para ser utilizada por empleadores, empresarios o terceros que deseen integrar funcionalidades de control de asistencia en sus negocios y empresas.
 
+## Instalación y uso rápido
+
+1. Clona el repositorio y entra a la carpeta del proyecto.
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+3. Configura la base de datos en el archivo `.env` (ya existe un ejemplo para MySQL).
+4. Ejecuta las migraciones de Prisma:
+   ```bash
+   npx prisma migrate dev --name init
+   ```
+5. Inicia el servidor de desarrollo:
+   ```bash
+   npm run start:dev
+   ```
+
+## Cambios realizados el 27/06/2025
+
+- Corrección de los nombres de los módulos exportados: ahora se exportan correctamente `EmployeeModule`, `AttendanceModule` y `ReportModule` para evitar errores de importación en `app.module.ts`.
+- Actualización de los DTOs:
+  - `CreateReportDto` ahora incluye los campos `employeeId` y `userId` requeridos por el modelo Prisma.
+  - Se corrigieron los DTOs de actualización para que los campos sean opcionales y sigan la convención de nombres de NestJS.
+- Corrección de los servicios:
+  - El método `create` de `ReportService` ahora conecta correctamente las relaciones con `employee` y `user` usando los IDs recibidos en el DTO.
+- Corrección de los controladores:
+  - Se corrigieron los nombres de clases, rutas y comentarios para que sean coherentes con la entidad que gestionan (usuario, empleado, asistencia, reporte).
+- Limpieza de comentarios y mensajes de error para mayor claridad y coherencia.
+
 ## Características
 ### Gestión de Asistencias
 El programa permite registrar, consultar, actualizar y eliminar asistencias de empleados o estudiantes. Cada asistencia puede incluir información como: Fecha, estado (presente, ausente, etc,), notas adicionales, entre otros.
