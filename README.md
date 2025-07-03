@@ -93,3 +93,5 @@ novex-assistance/
 - El proyecto está preparado para agregar autenticación JWT y middlewares de seguridad.
 - Puedes extender el modelo de roles y permisos fácilmente desde el archivo `schema.prisma`.
 - Para pruebas y desarrollo, puedes usar herramientas como Postman para consumir los endpoints.
+
+> - Este proyecto utiliza la dependencia de "cors" para ejecutarse y admitir dos servidores con puertos distintos desde la API REST y el frontend.
