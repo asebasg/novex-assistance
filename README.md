@@ -1,5 +1,66 @@
 # Novex Assistance
-Novex Assistance es una API REST desarrollada con tecnología NestJS y Prisma que permite llevar el control de asistencias y reportes de múltiples entidades tales como empresas, colegios, universidades, etc. Esta API está diseñada para ser utilizada por empleadores, empresarios o terceros que deseen integrar funcionalidades de control de asistencia en sus negocios y empresas.
+
+Novex Assistance es una API REST desarrollada con tecnología NestJS y Prisma para el control de asistencias y reportes en empresas, colegios, universidades y otras entidades. Permite a empleadores y administradores gestionar empleados, asistencias y reportes de manera eficiente y segura.
+
+## Características principales
+
+- **Gestión de usuarios:** Registro, consulta, actualización y eliminación de usuarios con roles.
+- **Gestión de empleados:** CRUD de empleados, asociación opcional a usuarios.
+- **Gestión de asistencias:** Registro de asistencias con fecha, hora de entrada/salida, estado y notas.
+- **Gestión de reportes:** Generación y consulta de reportes asociados a empleados y usuarios.
+- **Relaciones entre entidades:** Usuarios pueden tener varios empleados y reportes; empleados pueden tener varias asistencias y reportes.
+- **Seguridad:** Preparado para autenticación y autorización (puedes integrar JWT fácilmente).
+- **Base de datos relacional:** Uso de MySQL y Prisma ORM para integridad y consultas eficientes.
+
+## Estructura del proyecto
+
+```
+novex-assistance/
+├── prisma/
+│   ├── migrations/
+│   └── schema.prisma
+├── src/
+│   ├── attendance/
+│   │   ├── attendance.controller.ts
+│   │   ├── attendance.module.ts
+│   │   ├── attendance.service.ts
+│   │   └── dto/
+│   ├── employee/
+│   │   ├── employee.controller.ts
+│   │   ├── employee.module.ts
+│   │   ├── employee.service.ts
+│   │   └── dto/
+│   ├── report/
+│   │   ├── report.controller.ts
+│   │   ├── report.module.ts
+│   │   ├── report.service.ts
+│   │   └── dto/
+│   ├── user/
+│   │   ├── user.controller.ts
+│   │   ├── user.module.ts
+│   │   ├── user.service.ts
+│   │   └── dto/
+│   ├── app.controller.ts
+│   ├── app.module.ts
+│   ├── app.service.ts
+│   └── main.ts
+├── test/
+├── .env
+├── .gitignore
+├── nest-cli.json
+├── package.json
+├── README.md
+├── tsconfig.build.json
+└── tsconfig.json
+```
+
+## Dependencias principales
+
+- **@nestjs/common, @nestjs/core, @nestjs/platform-express:** Framework NestJS.
+- **@prisma/client, prisma:** ORM para Node.js y TypeScript.
+- **MySQL:** Motor de base de datos relacional.
+- **reflect-metadata, rxjs, cors:** Utilidades para el entorno Node/Nest.
+- **Herramientas de desarrollo:** eslint, prettier, jest, ts-jest, supertest, typescript.
 
 ## Instalación y uso rápido
 
@@ -18,75 +79,17 @@ Novex Assistance es una API REST desarrollada con tecnología NestJS y Prisma qu
    npm run start:dev
    ```
 
-## Cambios realizados el 27/06/2025
+## Funcionalidades
 
-- Corrección de los nombres de los módulos exportados: ahora se exportan correctamente `EmployeeModule`, `AttendanceModule` y `ReportModule` para evitar errores de importación en `app.module.ts`.
-- Actualización de los DTOs:
-  - `CreateReportDto` ahora incluye los campos `employeeId` y `userId` requeridos por el modelo Prisma.
-  - Se corrigieron los DTOs de actualización para que los campos sean opcionales y sigan la convención de nombres de NestJS.
-- Corrección de los servicios:
-  - El método `create` de `ReportService` ahora conecta correctamente las relaciones con `employee` y `user` usando los IDs recibidos en el DTO.
-- Corrección de los controladores:
-  - Se corrigieron los nombres de clases, rutas y comentarios para que sean coherentes con la entidad que gestionan (usuario, empleado, asistencia, reporte).
-- Limpieza de comentarios y mensajes de error para mayor claridad y coherencia.
+- **Usuarios:** Crear, consultar, actualizar y eliminar usuarios.
+- **Empleados:** Crear, consultar, actualizar y eliminar empleados, con opción de asociar a un usuario.
+- **Asistencias:** Registrar, consultar, actualizar y eliminar asistencias de empleados.
+- **Reportes:** Crear y consultar reportes asociados a empleados y usuarios.
+- **Relaciones:** Consultas anidadas y relaciones entre usuarios, empleados, asistencias y reportes.
 
-## Características
-### Gestión de Asistencias
-El programa permite registrar, consultar, actualizar y eliminar asistencias de empleados o estudiantes. Cada asistencia puede incluir información como: Fecha, estado (presente, ausente, etc,), notas adicionales, entre otros.
+## Notas adicionales
 
-### Reportes
-Además de la gestión de asistencias, la API permite generar reportes detallados sobre la asistencia de los empleados o estudiantes.
-
-## Tecnologías utilizadas
-- **NestJS**: Framework de Node.js para construir aplicaciones del lado del servidor.
-- **Prisma**: ORM para Node.js y TypeScript, utilizado para interactuar con la base de datos.
-- **MySQL**: Sistema de gestión de bases de datos relacional utilizado para almacenar la información de asistencia y reportes.
-
-Para migrar base de datos: npx prisma migrate dev --name init.
-
-## Estructura del proyecto
-```
-NOVEX-ASSISTANCE/
-├── prisma/
-│   └── schema.prisma
-├── src/
-│   ├── attendance/
-│   │   ├── attendance.controller.spec.ts
-│   │   ├── attendance.controller.ts
-│   │   ├── attendance.module.ts
-│   │   ├── attendance.service.spec.ts
-│   │   └── attendance.service.ts
-│   │
-│   ├── employee/
-│   │   ├── employee.controller.spec.ts
-│   │   ├── employee.controller.ts
-│   │   ├── employee.module.ts
-│   │   ├── employee.service.spec.ts
-│   │   └── employee.service.ts
-│   │
-│   ├── report/
-│   │   ├── report.controller.spec.ts
-│   │   ├── report.controller.ts
-│   │   ├── report.module.ts
-│   │   └── report.service.ts
-│   │
-│   ├── user/
-│   │   ├── user.controller.spec.ts
-│   │   ├── user.controller.ts
-│   │   ├── user.module.ts
-│   │   └── user.service.ts
-│   │
-│   ├── app.controller.spec.ts
-│   ├── app.controller.ts
-│   ├── app.module.ts
-│   └── main.ts
-│
-├── test/
-├── .gitignore
-├── .eslintrc.js
-├── nest-cli.json
-├── package.json
-├── README.md
-├── tsconfig.build.json
-└── tsconfig.json
-```
+- El archivo `.env` debe contener la variable `DATABASE_URL` con la cadena de conexión a MySQL.
+- El proyecto está preparado para agregar autenticación JWT y middlewares de seguridad.
+- Puedes extender el modelo de roles y permisos fácilmente desde el archivo `schema.prisma`.
+- Para pruebas y desarrollo, puedes usar herramientas como Postman para consumir los endpoints.
