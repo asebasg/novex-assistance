@@ -44,9 +44,21 @@ export class AttendanceService {
         `No se encontro ninguna asistencia con la ID proporcionada`,
       );
     }
+    // Solo incluir campos definidos para evitar nulls
+    const data: Partial<UpdateAttendanceDto> = {};
+    if (typeof updateAttendanceDto.date !== 'undefined')
+      data.date = updateAttendanceDto.date;
+    if (typeof updateAttendanceDto.entryTime !== 'undefined')
+      data.entryTime = updateAttendanceDto.entryTime;
+    if (typeof updateAttendanceDto.exitTime !== 'undefined')
+      data.exitTime = updateAttendanceDto.exitTime;
+    if (typeof updateAttendanceDto.status !== 'undefined')
+      data.status = updateAttendanceDto.status;
+    if (typeof updateAttendanceDto.employeeId !== 'undefined')
+      data.employeeId = updateAttendanceDto.employeeId;
     return this.prisma.attendance.update({
       where: { id },
-      data: updateAttendanceDto,
+      data,
     });
   }
 
