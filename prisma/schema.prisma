@@ -79,8 +79,8 @@ model Report {
   employeeId  Int
   employee    Employee @relation(fields: [employeeId], references: [id])
 
-  userId      Int
-  user        User     @relation(fields: [userId], references: [id])
+  userId      Int?
+  user        User?     @relation(fields: [userId], references: [id])
 }
 
 // Para migrar base de datos: npx prisma migrate dev --name init
