@@ -39,7 +39,7 @@ model Employee {
   createdAt DateTime @default(now())
 
   userId Int?
-  user   User? @relation(fields: [userId], references: [id])
+  user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   attendances Attendance[]
   reports     Report[]
@@ -54,7 +54,7 @@ model Attendance {
   exitTime   DateTime?
   status     Status
   employeeId Int
-  employee   Employee  @relation(fields: [employeeId], references: [id])
+  employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
 }
 
 enum Status {
@@ -75,7 +75,8 @@ model Report {
   createdAt   DateTime @default(now())
 
   employeeId Int
-  employee   Employee @relation(fields: [employeeId], references: [id])
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
 }
 
-// Para migrar base de datos: npx prisma migrate dev --name init
+// Para migrar la base de datos, ejecuta en terminal:
+// npx prisma migrate dev --name init
