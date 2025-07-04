@@ -16,14 +16,13 @@ datasource db {
 // User
 
 model User {
-  id         Int      @id @default(autoincrement())
-  email      String   @unique
-  password   String
-  name       String
-  role       Role     @default(ADMIN)
-  createdAt  DateTime @default(now())
-  employees  Employee[]
-  reports    Report[]
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  password  String
+  name      String
+  role      Role       @default(ADMIN)
+  createdAt DateTime   @default(now())
+  employees Employee[]
 }
 
 enum Role {
@@ -33,30 +32,29 @@ enum Role {
 // Employee
 
 model Employee {
-  id           Int          @id @default(autoincrement())
-  name         String
-  document     Int       @unique
-  note         String?      // Opcional
-  createdAt    DateTime     @default(now())
+  id        Int      @id @default(autoincrement())
+  name      String
+  document  Int      @unique
+  note      String? // Opcional
+  createdAt DateTime @default(now())
 
-  userId       Int?         
-  user         User?        @relation(fields: [userId], references: [id])
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id])
 
-  attendances  Attendance[]
-  reports      Report[]
- 
+  attendances Attendance[]
+  reports     Report[]
 }
 
 // Attendance
 
 model Attendance {
-  id          Int       @id @default(autoincrement())
-  date        DateTime
-  entryTime   DateTime
-  exitTime    DateTime?
-  status      Status
-  employeeId  Int
-  employee    Employee  @relation(fields: [employeeId], references: [id])
+  id         Int       @id @default(autoincrement())
+  date       DateTime
+  entryTime  DateTime
+  exitTime   DateTime?
+  status     Status
+  employeeId Int
+  employee   Employee  @relation(fields: [employeeId], references: [id])
 }
 
 enum Status {
@@ -76,11 +74,8 @@ model Report {
   description String
   createdAt   DateTime @default(now())
 
-  employeeId  Int
-  employee    Employee @relation(fields: [employeeId], references: [id])
-
-  userId      Int?
-  user        User?     @relation(fields: [userId], references: [id])
+  employeeId Int
+  employee   Employee @relation(fields: [employeeId], references: [id])
 }
 
 // Para migrar base de datos: npx prisma migrate dev --name init

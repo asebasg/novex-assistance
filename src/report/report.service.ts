@@ -9,8 +9,13 @@ export class ReportService {
 
   // Crear reporte
   async create(createReportDto: CreateReportDto) {
+    const { title, description, employeeId } = createReportDto as any;
     return this.prisma.report.create({
-      data: createReportDto,
+      data: {
+        title,
+        description,
+        employee: { connect: { id: employeeId } },
+      },
     });
   }
 
